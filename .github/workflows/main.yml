@@ -4,10 +4,13 @@ run-name: this action has been run
 on: [push]
 
 jobs:
-  demo_job:
+  test: 
     runs-on: ubuntu-latest
-    steps:
-      - run: echo "Hello world!"
-
-      - name: Checkout
-        uses: actions/checkout@v6.0.0
+    steps: 
+    - uses: actions/checkout@v5
+    - uses: actions/setup-dotnet@v5
+      with:
+        dotnet-version: '10.0.x'
+    - run: dotnet build
+    - name: test
+      run: dotnet test
