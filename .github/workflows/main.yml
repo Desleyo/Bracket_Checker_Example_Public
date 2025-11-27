@@ -4,10 +4,26 @@ run-name: this action has been run
 on: [push]
 
 jobs:
-  demo_job:
+  build:
     runs-on: ubuntu-latest
-    steps:
-      - run: echo "Hello world!"
-
-      - name: Checkout
-        uses: actions/checkout@v6.0.0
+    steps: 
+      - name: checkout repo
+        uses: actions/checkout@v3
+      - name: use node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '18.x'
+      - run: npm install
+      - run: npm run build 
+  test: 
+    needs: build
+    runs-on: ubuntu-latest
+    steps: 
+      - name: checkout repo
+        uses: actions/checkout@v3
+      - name: use node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '18.x'
+      - run: npm install
+      - run: npm test
