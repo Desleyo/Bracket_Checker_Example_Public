@@ -19,4 +19,11 @@ public class BracketCheckerTest
         var result = BracketChecker.Check("(hello()");
         Assert.IsFalse(result);
     }
+
+    [TestMethod]
+    public void TestCheckWrongOrder()
+    {
+        var result = BracketChecker.Check(")hello()(");
+        Assert.IsFalse(result);
+    }
 }
